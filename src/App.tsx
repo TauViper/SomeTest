@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import './App.css';
-import { defaultContext, ThemeContext } from './store/utils/ThemeContext';
+import { ThemeContext, defaultContext } from './store/utils/ThemeContext';
 import { AppRouter } from './components/AppRouter';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -24,5 +24,5 @@ export const App: FC = () => {
         </PersistGate>
       </Provider>
     </ThemeContext.Provider>
-  )
+  );
 };

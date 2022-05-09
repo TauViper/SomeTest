@@ -28,12 +28,19 @@ export const Profile: FC = () => {
         </button>
         <br />
         <input
-          className='input'
+          className="input"
           type="text"
           onChange={(e) => setValue(e.target.value)}
           value={value}
         />
-        <ButtonUI variant='contained' type='submit' endIcon={<SendIcon />} onClick={() => dispatch(changeName(value))}>change name</ButtonUI>
+        <ButtonUI
+          variant="contained"
+          type="submit"
+          endIcon={<SendIcon />}
+          onClick={() => dispatch(changeName(value))}
+        >
+          change name
+        </ButtonUI>
       </div>
     </>
   );

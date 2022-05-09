@@ -1,5 +1,5 @@
-import { compose, combineReducers } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers, compose } from 'redux';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { chatReducer } from './chats/reducer';
 import { profileReducer } from './profile/slice';
@@ -14,7 +14,7 @@ const persistConfig = {
   key: 'root',
   storage,
   blacklist: ['profile'],
-}
+};
 const rootReducer = combineReducers({
   profile: profileReducer,
   chats: chatReducer,

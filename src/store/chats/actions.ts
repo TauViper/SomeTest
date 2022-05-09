@@ -25,19 +25,19 @@ let timeout: NodeJS.Timeout;
 
 export const addMessageWithReply =
   (chatId: string, message: Message) =>
-    (dispatch: Dispatch<ReturnType<AddMessage>>) => {
-      dispatch(addMessage(chatId, message));
-      if (message.author !== AUTHOR.bot) {
-        if (timeout) {
-          clearTimeout(timeout);
-        }
-        timeout = setTimeout(() => {
-          dispatch(
-            addMessage(chatId, {
-              text: 'Im BOT',
-              author: AUTHOR.bot,
-            })
-          );
-        }, 1000);
+  (dispatch: Dispatch<ReturnType<AddMessage>>) => {
+    dispatch(addMessage(chatId, message));
+    if (message.author !== AUTHOR.bot) {
+      if (timeout) {
+        clearTimeout(timeout);
       }
-    };
+      timeout = setTimeout(() => {
+        dispatch(
+          addMessage(chatId, {
+            text: 'Im BOT',
+            author: AUTHOR.bot,
+          })
+        );
+      }, 1000);
+    }
+  };
