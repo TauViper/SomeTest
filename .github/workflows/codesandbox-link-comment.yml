@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: mshick/add-pr-comment@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ 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 }}
         with:
           message: |
             You can check this code at CodeSandbox with the link
