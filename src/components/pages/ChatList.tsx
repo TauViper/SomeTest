@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import SendIcon from '@mui/icons-material/Send';
+// import SendIcon from '@mui/icons-material/Send';
 import ButtonUI from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { addChat, deleteChat } from '../../store/chats/actions';
@@ -44,7 +44,11 @@ export const ChatList: FC = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <ButtonUI variant="contained" type="submit" endIcon={<SendIcon />}>
+        <ButtonUI
+          variant="contained"
+          type="submit"
+          // endIcon={<SendIcon />}
+        >
           Add Chat
         </ButtonUI>
       </form>

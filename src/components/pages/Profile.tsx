@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SendIcon from '@mui/icons-material/Send';
+// import SendIcon from '@mui/icons-material/Send';
 import ButtonUI from '@mui/material/Button';
 import { ThemeContext } from '../../store/utils/ThemeContext';
 import { changeName, toggleProfile } from '../../store/profile/slice';
@@ -36,7 +36,7 @@ export const Profile: FC = () => {
         <ButtonUI
           variant="contained"
           type="submit"
-          endIcon={<SendIcon />}
+          // endIcon={<SendIcon />}
           onClick={() => dispatch(changeName(value))}
         >
           change name
