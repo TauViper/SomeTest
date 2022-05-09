@@ -1,0 +1,23 @@
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Button } from './Button';
+
+export default {
+  title: 'MyComponents/Button',
+  component: Button,
+  argTypes: {
+    onButtonClick: { action: 'click' },
+  },
+} as ComponentMeta<typeof Button>;
+
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+  type: true,
+};
+
+export const onClick = Template.bind({});
+onClick.args = {
+  onClick: true,
+};
