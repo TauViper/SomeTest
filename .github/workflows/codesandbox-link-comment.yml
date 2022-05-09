@@ -6,16 +6,17 @@ on:
   # https://github.com/mshick/add-pr-comment/issues/25
   pull_request_target:
     types: [opened]
-permissions: read-all
+
 
 jobs:
+permissions: write-all
   codesandbox-comment:
     name: Add codesandbox link comment
     runs-on: ubuntu-latest
     steps:
       - uses: mshick/add-pr-comment@v1
         env:
-          GITHUB_TOKEN: ${{ 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 }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           message: |
             You can check this code at CodeSandbox with the link
