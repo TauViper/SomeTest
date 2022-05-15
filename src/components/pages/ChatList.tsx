@@ -1,13 +1,12 @@
-import React, { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
-import SendIcon from '@mui/icons-material/Send';
-import ButtonUI from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { addChat, deleteChat } from '../../store/chats/actions';
-import { selectChatList } from '../../store/chats/selectors';
+import React, { FC, useState } from "react";
+import { Link } from "react-router-dom";
+import ButtonUI from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { addChat, deleteChat } from "../../store/chats/slice";
+import { selectChatList } from "../../store/chats/selectors";
 
 export const ChatList: FC = () => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const dispatch = useDispatch();
   const chatList = useSelector(
     selectChatList,
@@ -16,8 +15,8 @@ export const ChatList: FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (name) {
-      dispatch(addChat(name));
-      setName('');
+      dispatch(addChat({ name }));
+      setName("");
     }
   };
   return (
@@ -28,7 +27,7 @@ export const ChatList: FC = () => {
             <Link to={`/chats/${chat.name}`}>{chat.name}</Link>
             <button
               className="delete__chat"
-              onClick={() => dispatch(deleteChat(chat.name))}
+              onClick={() => dispatch(deleteChat({ chatId: chat.name }))}
             >
               x
             </button>
@@ -44,7 +43,7 @@ export const ChatList: FC = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <ButtonUI variant="contained" type="submit" endIcon={<SendIcon />}>
+        <ButtonUI variant="contained" type="submit">
           Add Chat
         </ButtonUI>
       </form>

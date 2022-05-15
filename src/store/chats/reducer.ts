@@ -1,8 +1,8 @@
-import { ADD_CHAT, ADD_MESSAGE, DELETE_CHAT } from './actions';
-import { Reducer } from 'redux';
-import { ChatsActions, MessageState } from './types';
-import { nanoid } from 'nanoid';
-import { AUTHOR } from '../../constants';
+import { ADD_CHAT, ADD_MESSAGE, DELETE_CHAT } from "./actions";
+import { Reducer } from "redux";
+import { ChatsActions, MessageState } from "./types";
+import { nanoid } from "nanoid";
+import { AUTHOR } from "../../constants";
 export interface ChatsState {
   [key: string]: MessageState[];
 }
@@ -10,9 +10,9 @@ export interface ChatsState {
 const initialState: ChatsState = {
   gb: [
     {
-      id: '1',
+      id: "1",
       author: AUTHOR.user,
-      text: 'Hello geekbrains',
+      text: "Hello geekbrains",
     },
   ],
 };

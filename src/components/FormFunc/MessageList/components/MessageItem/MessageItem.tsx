@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo } from "react";
 
 export interface Message {
   id: string;
