@@ -77,3 +77,17 @@ li::before {
   border-radius: 25px;
   box-shadow: 0 8px 16px 0 rgb(0 0 0 / 10%), 0 6px 5px 0 rgb(0 0 0 / 26%);
 }
+.atric__ul {
+  margin-left: 45px;
+  height: 50%;
+  width: 50%;
+  box-sizing: border-box;
+  overflow: auto;
+  color: brown;
+  border: 2px solid aqua;
+  background: url(/public/logo512.png);
+  background-color: #fff;
+  background-position: center;
+  background-size: 20%;
+  background-repeat: no-repeat;
+}

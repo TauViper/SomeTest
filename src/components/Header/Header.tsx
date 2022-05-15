@@ -1,11 +1,14 @@
 import React, { FC } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth } from "src/store/profile/selectors";
+import { changeAuth } from "src/store/profile/slice";
 
 const navigate = [
   {
     id: 1,
-    to: "/",
     name: "Home",
+    to: "/",
   },
   {
     id: 2,
@@ -22,21 +25,44 @@ const navigate = [
     to: "/Error",
     name: "ErrorViewer",
   },
+  {
+    id: 5,
+    name: "Articles",
+    to: "/articles",
+  },
 ];
 
-export const Header: FC = () => (
-  <>
-    <header>
-      {navigate.map((link) => (
-        <NavLink
-          key={link.id}
-          to={link.to}
-          style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
-        >
-          {link.name}
-        </NavLink>
-      ))}
-    </header>
-    <Outlet />
-  </>
-);
+export const Header: FC = () => {
+  const dispatch = useDispatch();
+  const auth = useSelector(selectAuth);
+
+  return (
+    <>
+      <header>
+        {navigate.map((link) => (
+          <NavLink
+            key={link.id}
+            to={link.to}
+            style={({ isActive }) => ({ color: isActive ? "green" : "blue" })}
+          >
+            {link.name}
+          </NavLink>
+        ))}
+
+        {auth ? (
+          <button
+            className="logout"
+            onClick={() => dispatch(changeAuth(false))}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link className="SingIn" to="/signin">
+            SingIn
+          </Link>
+        )}
+      </header>
+      <Outlet />
+    </>
+  );
+};

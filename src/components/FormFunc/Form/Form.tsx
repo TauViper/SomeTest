@@ -1,15 +1,15 @@
-import React, { FC, memo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { ThunkDispatch } from 'redux-thunk';
-import { AUTHOR } from '../../../constants';
-import { addMessageWithReply } from '../../../store/chats/actions';
-import { ChatsState } from '../../../store/chats/reducer';
-import { AddMessage } from '../../../store/chats/types';
-import { Button } from '../Button/Button';
+import React, { FC, memo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { ThunkDispatch } from "redux-thunk";
+import { AUTHOR } from "../../../constants";
+import { addMessageWithReply } from "../../../store/chats/slice";
+import { ChatsState } from "../../../store/chats/reducer";
+import { AddMessage } from "../../../store/chats/types";
+import { Button } from "../Button/Button";
 
 export const Form: FC = memo(() => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const { chatId } = useParams();
   const dispatch =
     useDispatch<ThunkDispatch<ChatsState, void, ReturnType<AddMessage>>>();
@@ -19,10 +19,13 @@ export const Form: FC = memo(() => {
 
     if (chatId && value) {
       dispatch(
-        addMessageWithReply(chatId, { text: value, author: AUTHOR.user })
+        addMessageWithReply({
+          chatId,
+          message: { author: AUTHOR.user, text: value },
+        })
       );
     }
-    setValue('');
+    setValue("");
   };
 
   return (

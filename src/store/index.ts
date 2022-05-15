@@ -1,7 +1,16 @@
 import { combineReducers, compose } from "redux";
-import { persistReducer, persistStore } from "redux-persist";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { chatReducer } from "./chats/reducer";
+import { chatsReducer } from "./chats/slice";
 import { profileReducer } from "./profile/slice";
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -17,11 +26,17 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
   profile: profileReducer,
-  chats: chatReducer,
+  chats: chatsReducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
-  reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+  reducer: persistedReducer,
 });
 export const persistor = persistStore(store);
