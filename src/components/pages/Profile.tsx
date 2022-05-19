@@ -1,10 +1,12 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
 import ButtonUI from "@mui/material/Button";
 import { ThemeContext } from "../../store/utils/ThemeContext";
 import { changeName, toggleProfile } from "../../store/profile/slice";
 import { selectName, selectVisible } from "../../store/profile/selectors";
+import { onValue, update } from "firebase/database";
+import { userRef } from "src/services/firebase";
 
 export const Profile: FC = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -12,6 +14,20 @@ export const Profile: FC = () => {
   const [value, setValue] = useState("");
   const visible = useSelector(selectVisible);
   const name = useSelector(selectName);
+
+  useEffect(() => {
+    onValue(userRef, (snapshot) => {
+      const user = snapshot.val();
+      dispatch(changeName(user.name || ""));
+    });
+  }, []);
+
+  const handleChangeName = async () => {
+    update(userRef, {
+      name: value,
+    });
+  };
+
   return (
     <>
       <h2>Profile</h2>
@@ -37,7 +53,7 @@ export const Profile: FC = () => {
           variant="contained"
           type="submit"
           endIcon={<SendIcon />}
-          onClick={() => dispatch(changeName(value))}
+          onClick={handleChangeName}
         >
           change name
         </ButtonUI>

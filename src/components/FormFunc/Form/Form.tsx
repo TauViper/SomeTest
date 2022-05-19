@@ -1,29 +1,29 @@
-import React, { FC, memo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { Input } from "@mui/material";
+import { nanoid } from "nanoid";
+import { push, set } from "firebase/database";
 import { useParams } from "react-router-dom";
-import { ThunkDispatch } from "redux-thunk";
-import { AUTHOR } from "../../../constants";
-import { addMessageWithReply } from "../../../store/chats/slice";
-import { ChatsState } from "../../../store/chats/reducer";
-import { AddMessage } from "../../../store/chats/types";
+import React, { FC, memo, useState } from "react";
+
+import { AUTHOR } from "src/constants";
+
 import { Button } from "../Button/Button";
+
+import { getMessageListById } from "src/services/firebase";
 
 export const Form: FC = memo(() => {
   const [value, setValue] = useState("");
   const { chatId } = useParams();
-  const dispatch =
-    useDispatch<ThunkDispatch<ChatsState, void, ReturnType<AddMessage>>>();
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (chatId && value) {
-      dispatch(
-        addMessageWithReply({
-          chatId,
-          message: { author: AUTHOR.user, text: value },
-        })
-      );
+      const id = nanoid();
+      push(getMessageListById(chatId), {
+        author: AUTHOR.user,
+        id,
+        text: value,
+      });
     }
     setValue("");
   };

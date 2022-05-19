@@ -1,21 +1,24 @@
-import { useDispatch } from "react-redux";
 import React, { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { changeAuth } from "src/store/profile/slice";
+import { login } from "src/services/firebase";
 
 export const SignIn: FC = () => {
-  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-  const dispatch = useDispatch();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setError(false);
-    if (login === "gb" && password === "gb") {
-      dispatch(changeAuth(true));
-    } else {
-      setError(true);
+    setError("");
+
+    try {
+      await login(email, password);
+      navigate("/Chats");
+    } catch (err) {
+      setError((err as Error).message);
     }
   };
 
@@ -27,9 +30,9 @@ export const SignIn: FC = () => {
         <p className="For__login">Логин:</p>
         <input
           className="input"
-          type="text"
-          onChange={(e) => setLogin(e.target.value)}
-          value={login}
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
         <p className="For__login">Пароль:</p>
         <input
@@ -41,7 +44,7 @@ export const SignIn: FC = () => {
         <br />
         <button className="Sing__In">SingIn</button>
 
-        {error && <p className="Login__error">Логин или пароль не верны</p>}
+        {error && <p className="Login__error">{error}</p>}
       </form>
     </>
   );
