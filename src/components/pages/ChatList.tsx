@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import ButtonUI from "@mui/material/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { push, remove, set } from "firebase/database";
 import { selectChatList } from "../../store/chats/selectors";
 import { chatsRef, getChatsById } from "src/services/firebase";
@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 
 export const ChatList: FC = () => {
   const [name, setName] = useState("");
-  const dispatch = useDispatch();
+
   const chatList = useSelector(
     selectChatList,
     (prev, next) => prev.length === next.length
