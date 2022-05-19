@@ -27,7 +27,6 @@ export const Chats: FC = () => {
         const lastMessage: any = Object.entries(chat.messageList)[
           Object.entries(chat.messageList).length - 2
         ][1];
-        console.log(Object.entries(chat.messageList));
         if (lastMessage.author !== "bot") {
           push(getMessageListById(chatId), {
             author: AUTHOR.bot,
